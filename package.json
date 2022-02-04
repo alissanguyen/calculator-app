@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tediko/calculator-app.git"
+    "url": "git+https://github.com/alissanguyen/calculator-app.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tediko/calculator-app/issues"
+    "url": "https://github.com/alissanguyen/calculator-app/issues"
   },
-  "homepage": "https://github.com/tediko/calculator-app#readme",
+  "homepage": "https://github.com/alissanguyen/calculator-app#readme",
   "devDependencies": {
     "laravel-mix": "^6.0.19",
     "postcss": "^8.1.14",
