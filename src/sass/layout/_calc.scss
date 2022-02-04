@@ -1,0 +1,374 @@
+@use '../utilities/' as *;
+
+.calc {
+    $root: &;
+    width: 100%;
+    transition: margin 250ms ease-in;
+
+    @include breakpoint('md') {
+        margin-top: 76px;
+    }
+
+    /* Class to add transition after initial page load */
+    &.enable-transition {
+        #{$root}__title,
+        #{$root}__text,
+        #{$root}__label,
+        #{$root}__display-value,
+        #{$root}__display-settings {
+            transition: color 700ms ease-in-out;
+        }
+
+        #{$root}__key {
+            transition: background-color 700ms ease-in-out,
+                        color 700ms ease-in-out,
+                        box-shadow 700ms ease-in-out;
+        }
+
+        #{$root}__toggle,
+        #{$root}__display,
+        #{$root}__keypad {
+            transition: background-color 700ms ease-in-out;
+        }
+
+        #{$root}__toggle::before {
+            transition: left 250ms ease-in;
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-flow: column;
+        gap: 24px;
+        max-width: 540px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        max-height: 38px;
+    }
+
+    &__title {
+        color: $c-text-header;
+        font-size: 1.9375rem;
+        font-weight: 700;
+    }
+
+    &__switch-wrapper {
+        display: flex;
+        align-items: flex-end;
+    }
+
+    &__text {
+        color: $c-text-header;
+        text-transform: uppercase;
+        font-size: 0.76rem;
+        letter-spacing: 1px;
+        margin: 0 23px 1px 0;
+        font-weight: 700;
+    }
+
+    &__switch {
+        position: relative;
+        display: flex;
+        align-self: flex-start;
+        justify-content: space-around;
+        height: 45px;
+        width: 100px;
+        margin-top: -4px;
+
+        /* Toggle circle and change position to choosen label */
+        #{$root}__input:nth-of-type(1):checked ~ #{$root}__toggle::before {
+            left: calc(0% + 13px);
+        }
+
+        #{$root}__input:nth-of-type(2):checked ~ #{$root}__toggle::before {
+            left: calc(24% + 13px);
+        }
+        
+        #{$root}__input:nth-of-type(3):checked ~ #{$root}__toggle::before {
+            left: calc(48% + 13px);
+        }
+
+        #{$root}__input:nth-of-type(4):checked ~ #{$root}__toggle::before {
+            left: calc(100% - 13px);
+        }
+
+        /* Add hover effect in toggle for choosen label */
+        @include breakpoint('md') {
+            #{$root}__label:nth-of-type(1):hover ~ #{$root}__toggle::after {
+                opacity: 1;
+                transition: opacity 250ms ease-in;
+            }
+    
+            #{$root}__label:nth-of-type(2):hover ~ #{$root}__toggle::after {
+                opacity: 1;
+                left: calc(24% + 13px);
+                transition: opacity 250ms ease-in;
+            }
+    
+            #{$root}__label:nth-of-type(3):hover ~ #{$root}__toggle::after {
+                opacity: 1;
+                left: calc(48% + 13px);
+                transition: opacity 250ms ease-in;
+            }
+
+            #{$root}__label:nth-of-type(4):hover ~ #{$root}__toggle::after {
+                opacity: 1;
+                left: calc(100% - 13px);
+                transition: opacity 250ms ease-in;
+            }
+        }
+    }
+
+    &__label {
+        width: 100%;
+        height: 100%;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: $c-text-header;
+        text-align: center;
+        z-index: 5;
+        cursor: pointer;
+    }
+
+    &__input {
+        opacity: 0;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+
+        &:focus ~ #{$root}__toggle {
+            outline: none;
+        }
+
+        &:focus-visible ~ #{$root}__toggle {
+            outline: 2px dashed $c-keys-equal;
+            outline-offset: 1px;
+        }
+    }
+
+    &__toggle {
+        position: absolute;
+        top: 19px;
+        left: 0;
+        width: 100%;
+        height: 26px;
+        border-radius: 20px;
+        background: $c-bg-toggle;
+
+        /* Toggle circle */
+        &::before {
+            position: absolute;
+            content: '';
+            top: 50%;
+            left: 13px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: $c-toggle;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Toggle circle but for hover effect */
+        &::after {
+            position: absolute;
+            content: '';
+            top: 50%;
+            left: 13px;
+            width: 16px;
+            height: 16px;
+            border: 1px solid $c-toggle;
+            border-radius: 50%;
+            background: transparent;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+    }
+
+    &__display {
+        position: relative;
+        display: grid;
+        align-content: center;
+        height: clamp(88px, 20vw, 128px);
+        margin-top: 11px;
+        border-radius: 10px;
+        background: $c-bg-screen;
+        transition: height 250ms ease-in;
+        padding: 10px 24px;
+
+        @include breakpoint('md') {
+            padding: 10px 31px;
+        }
+    }
+
+    &__display-settings {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0px;
+        left: 0px;
+        width: 40px;
+        height: 40px;
+        border: none;
+        background-color: transparent;
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        color: $c-text-display;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus-visible {
+            color: $c-toggle;
+            
+            #{$root}__display-icon {
+                animation: iconRotate 3s linear infinite;
+            }
+        }
+
+        @include breakpoint('md') {
+            top: 5px;
+            left: 5px;
+
+            &:hover {
+                color: $c-toggle;
+    
+                #{$root}__display-icon {
+                    animation: iconRotate 3s linear infinite;
+                }
+            }
+        }
+    }
+
+    &__display-value {
+        color: $c-text-display;
+        justify-self: end;
+        font-weight: 700;
+
+        &--previous {
+            @extend #{$root}__display-value;
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            opacity: 0.3;
+            height: 23px; 
+        }
+
+        &--current {
+            @extend #{$root}__display-value;
+            font-size: clamp(2rem, 7vw, 2.9375rem);
+
+            &.small {
+                font-size: clamp(1.125rem, 4.5vw, 2rem);
+            }
+        }
+    }
+    
+    &__keypad {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(40px, 101px));
+        grid-template-rows: repeat(5, 60px);
+        justify-content: space-between;
+        gap: clamp(17px, 4vw, 28px) clamp(12px, 3vw, 25px);
+        width: 100%;
+        height: max-content;
+        padding: 24px 24px 28px 24px;
+        background: var(--c-bg-keypad);
+        border-radius: 10px;
+        z-index: 0;
+        transition: padding 250ms ease-in;
+
+        @include breakpoint('md') {
+            padding: 31px 31px 37px 31px;
+        }
+    }
+
+    &__key {
+        position: relative;
+        padding-top: 6px; // align font with design
+        font-family: $ff-primary;
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: $c-text-primary;
+        background-color: $c-keys;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 85ms ease-in;
+        
+        &:active {
+            transform: translateY(4px);
+            animation: keyDrop 0ms ease-in forwards;
+
+            &::before {
+                display: none;
+            }
+        }
+
+        @include breakpoint('md') {
+            font-size: 2rem;
+            border-radius: 10px;
+        }
+
+        &--num, &--func {
+            @extend #{$root}__key;
+            box-shadow: 0px 4px $c-keys-shadow;
+        }
+
+        &--num, &--func, &--spec {
+            &:focus {
+                outline: none;
+            }
+            
+            &:focus-visible {
+                color: $c-keys-equal;
+                box-shadow: 0 4px $c-keys-equal;
+            }
+        }
+
+        &--spec, &--equal {
+            @extend #{$root}__key;
+            text-transform: uppercase;
+            font-size: 1.0625rem;
+            color: $c-text-secondary;
+            
+            @include breakpoint('md') {
+                font-size: 1.25rem;
+            }
+        }
+
+        &--spec {
+            background-color: $c-keys-func;
+            box-shadow: 0px 4px $c-keys-func-shadow;
+            
+            &:active {
+                animation: keyDrop-spec 0ms ease-in forwards;
+            }
+        }
+        
+        &--equal {
+            background-color: $c-keys-equal;
+            box-shadow: 0px 4px $c-keys-equal-shadow;
+
+            &:active {
+                animation: keyDrop-equal 0ms ease-in forwards;
+            }
+
+            &:focus {
+                outline: none;
+            }
+            
+            &:focus-visible {
+                box-shadow: 0 4px $c-keys;
+            }
+        }
+
+        &--span-two {
+            grid-column: span 2;
+        }
+    }
+}

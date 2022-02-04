@@ -1,0 +1,16 @@
+@use '../utilities/' as *;
+
+.component-wrapper {
+    $root: &;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: $c-bg-main;
+    padding: 24px;
+
+    &.enable-transition {
+        transition: background-color 700ms ease-in-out;
+    }
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+  <link rel="stylesheet" href="css/main.css">
+  <title>Frontend Mentor | Calculator app</title>
+</head>
+<body data-theme="dark">
+  <div class="overlay" data-overlay></div>
+  <main class="component-wrapper" data-component>
+    <!-- Calculator -->
+    <div class="calc" data-calc>
+      <div class="calc__container">
+        <header class="calc__header">
+          <h1 class="calc__title">calc</h1>
+          <div class="calc__switch-wrapper">
+            <span class="calc__text">Theme</span>
+            <div class="calc__switch">
+              <!-- Input 01-->
+              <label for="dark-theme" class="calc__label" aria-label="Toggle dark theme">1</label>
+              <input type="radio" name="theme switch" id="dark-theme" class="calc__input" data-theme-input="dark">
+              <!-- Input 02-->
+              <label for="light-theme" class="calc__label" aria-label="Toggle light theme">2</label>
+              <input type="radio" name="theme switch" id="light-theme" class="calc__input" data-theme-input="light">
+              <!-- Input 03-->
+              <label for="neon-theme" class="calc__label calc__label-toggle" aria-label="Toggle neon theme">3</label>
+              <input type="radio" name="theme switch" id="neon-theme" class="calc__input" data-theme-input="neon">
+              <!-- Input 04-->
+              <label for="custom-theme" class="calc__label" aria-label="Toggle custom theme">C</label>
+              <input type="radio" name="theme switch" id="custom-theme" class="calc__input" data-theme-input="custom">
+              <span class="calc__toggle"></span>
+            </div>
+          </div>
+        </header>
+        <div class="calc__display">
+          <button class="calc__display-settings" aria-label="Toggle theme settings" data-settings><i class="calc__display-icon i-cog"></i></button>
+          <p class="calc__display-value--previous" data-previous-value>1233 +</p>
+          <p class="calc__display-value--current" data-current-value>399,981</p>
+        </div>
+        <div class="calc__keypad">
+          <button class="calc__key--num" data-keys="num">7</button>
+          <button class="calc__key--num" data-keys="num">8</button>
+          <button class="calc__key--num" data-keys="num">9</button>
+          <button class="calc__key--spec" data-keys="del">del</button>
+          <button class="calc__key--num" data-keys="num">4</button>
+          <button class="calc__key--num" data-keys="num">5</button>
+          <button class="calc__key--num" data-keys="num">6</button>
+          <button class="calc__key--func" data-keys="func" data-operation="+">+</button>
+          <button class="calc__key--num" data-keys="num">1</button>
+          <button class="calc__key--num" data-keys="num">2</button>
+          <button class="calc__key--num" data-keys="num">3</button>
+          <button class="calc__key--func" data-keys="func" data-operation="-">-</button>
+          <button class="calc__key--num" data-keys="num">.</button>
+          <button class="calc__key--num" data-keys="num">0</button>
+          <button class="calc__key--func" data-keys="func" data-operation="/">/</button>
+          <button class="calc__key--func" data-keys="func" data-operation="*">x</button>
+          <button class="calc__key--spec calc__key--span-two" data-keys="reset">reset</button>
+          <button class="calc__key--equal calc__key--span-two" data-keys="equals">&#61;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theme color picker modal -->
+    <section class="theme-modal" tabindex="-1" role="dialog" data-modal>
+      <div class="theme-modal__container">
+        <header class="theme-modal__header">
+          <h2 class="theme-modal__title"><i class="theme-modal__title-icon i-cog"></i>Theme Settings</h2>
+          <div class="theme-modal__cta-wrapper">
+            <button class="theme-modal__cta--reset" aria-label="Reset theme colors" data-modal-reset><i class="theme-modal__reset-icon i-undo"></i><span>reset</span></button>
+            <button class="theme-modal__cta--save" aria-label="Close and save theme modal" data-modal-save><i class="theme-modal__check-icon i-check"></i><span>save</span></button>
+            <button class="theme-modal__cta--close" aria-label="Close theme modal" data-modal-close><i class="theme-modal__close-icon i-close"></i></button>
+          </div>
+        </header>
+        <div class="theme-modal__generator" data-color-generator></div>
+        <div class="theme-modal__select">
+          <h3 class="theme-modal__subtitle">Backgrounds</h3>
+          <div class="theme-modal__colors-wrapper">
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--main" data-theme-picker="main" aria-label="Select main color"></button>
+              <span class="theme-modal__name">Main</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--screen" data-theme-picker="screen" aria-label="Select screen color"></button>
+              <span class="theme-modal__name">Screen</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--keypad" data-theme-picker="keypad" aria-label="Select keypad color"></button>
+              <span class="theme-modal__name">Keypad/Toggle</span>
+            </div>
+          </div>
+        </div>
+        <div class="theme-modal__select">
+          <h3 class="theme-modal__subtitle">Keys</h3>
+          <div class="theme-modal__colors-wrapper">
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--numbers" data-theme-picker="numbers" aria-label="Select numbers color"></button>
+              <span class="theme-modal__name">Numbers</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--numbers-shadow" data-theme-picker="numShad" aria-label="Select numbers shadow color"></button>
+              <span class="theme-modal__name">Num shad.</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--functions" data-theme-picker="functions" aria-label="Select functions key color"></button>
+              <span class="theme-modal__name">Functions</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--functions-shadow" data-theme-picker="funcShad" aria-label="Select functions key shadow color"></button>
+              <span class="theme-modal__name">Func shad.</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--equal" data-theme-picker="equal" aria-label="Select equal key color"></button>
+              <span class="theme-modal__name">Equal</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--equal-shadow" data-theme-picker="eqShad" aria-label="Select equal shadow key color"></button>
+              <span class="theme-modal__name">Equal shad.</span>
+            </div>
+          </div>
+        </div>
+        <div class="theme-modal__select">
+          <h3 class="theme-modal__subtitle">Text</h3>
+          <div class="theme-modal__colors-wrapper">
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--primary" data-theme-picker="primary" aria-label="Select primary text color"></button>
+              <span class="theme-modal__name">Primary</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--secondary" data-theme-picker="secondary" aria-label="Select secondary text color"></button>
+              <span class="theme-modal__name">Secondary</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--display" data-theme-picker="display" aria-label="Select screen text color"></button>
+              <span class="theme-modal__name">Screen</span>
+            </div>
+            <div class="theme-modal__color">
+              <button class="theme-modal__picker theme-modal__picker--header" data-theme-picker="header" aria-label="Select header text color"></button>
+              <span class="theme-modal__name">Header</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="js/app.js" type="module"></script>
+</body>
+</html>
